@@ -1,0 +1,192 @@
+<%- include('../partials/header.ejs') %>
+
+<section class="placeOrder">
+  <div class="container py-3">
+    <div class="depth bg-primary">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/products">Products</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Order</li>
+      </ol>
+    </div>
+
+    <div class="dataForm px-4">
+      <div class="text-center">
+        <i class="icon bi bi-bag-plus-fill"></i>
+      </div>
+      <h4 class="text-white text-center mt-2">Place an order</h4>
+      <hr class="text-white" />
+      <form action="/order" method="post">
+        <div class="row">
+          <!-- product photo -->
+          <div class="col-md-4">
+            <div class="col-inner">
+              
+              <% if (item == 'cp') { %>
+              <div>
+                <div class="text-center">
+                  <h6 class="text-white text-center">Product</h6>
+                  <hr class="text-white" />
+                  <img
+                    src="img/cp-logo.png"
+                    class="p-img"
+                    alt="Product image"
+                  />
+                </div>
+                <h6 class="text-white text-center">
+                  Call of Duty : Mobile (CP)
+                </h6>
+                <input class="d-none" name="product" value="cod-cp" type="text">
+              </div>
+              <% } else if (item == "uc") { %> <% } else if (item == "dmd") { %>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- quantity part -->
+          <div class="col-md-4">
+            <div class="col-inner">
+              <% if (item == 'cp') { %>
+                <!-- inputs -->
+              <div>
+                <h6 class="text-white text-center">Quantity</h6>
+                <hr class="text-white" />
+                <h6 class="text-white mb-2">Select CP Quantity</h6>
+                <div class="form-group mb-3">
+                  <select
+                    id="cpAmountSel"
+                    onchange="setProductCost('cp')"
+                    name="cpAmount"
+                    class="form-select"
+                  >
+                    <option value="80cp" selected>80 CP</option>
+                    <option value="420cp">420 CP</option>
+                    <option value="880cp">880 CP</option>
+                    <option value="2400cp">2400 CP</option>
+                    <option value="5000cp">5000 CP</option>
+                    <option value="10800cp">10800 CP</option>
+                  </select>
+                </div>
+              </div>
+              <% } else if (item == "uc") { %> <% } else if (item == "dmd") { %>
+              <% } %>
+
+              <!-- static -->
+              <div>
+                <div class="mb-2">
+                  <h6 class="text-white">
+                    Price : <span class="price">0</span> BDT
+                  </h6>
+                  <input
+                    class="d-none"
+                    name="price"
+                    id="priceInput"
+                    type="text"
+                  />
+                </div>
+                <hr class="text-white" />
+                <div>
+                  <div class="text-center">
+                    <i class="iconAttn bi bi-patch-exclamation-fill"></i>
+                  </div>
+                  <p class="text-white">
+                    Next, provide login details of your game account. We use
+                    these data only to load game credits in your account.
+                  </p>
+                  <p class="text-white">
+                    For your security, login details are automatically deleted
+                    from our server as soon as your order is delivered.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- login and payment details -->
+          <div class="col-md-4">
+            <div class="col-inner">
+              <% if (item == 'cp') { %>
+              <!-- login details -->
+              <div>
+                <h6 class="text-white text-center">Login Details</h6>
+                <hr class="text-white" />
+                <h6 class="text-white mb-2">Select login method</h6>
+                <div class="form-group mb-3">
+                  <select name="loginMethod" class="form-select">
+                    <option value="viaCodAccount" selected>
+                      Login with COD accoount
+                    </option>
+                    <option value="viaFacebook">Login with Facebook</option>
+                  </select>
+                </div>
+
+                <h6 class="text-white mb-2">Enter login data</h6>
+                <div class="form-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="loginId"
+                    required
+                    value=""
+                    placeholder="Login email or phone"
+                  />
+                </div>
+                <div class="form-group mb-2">
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="loginPass"
+                    required
+                    value=""
+                    placeholder="Login password"
+                  />
+                </div>
+              </div>
+              <% } else if (item == "uc") { %> <% } else if (item == "dmd") { %>
+              <% } %>
+
+              <!-- payment method -->
+              <div class="mt-4">
+                <h6 class="text-white text-center">Payment method</h6>
+                <hr class="text-white" />
+                <h6 class="text-white mb-2">Choose how you will pay</h6>
+                <div class="form-group mb-2">
+                  <select name="paymentMethod" class="form-select">
+                    <option value="bkash" selected>bKash</option>
+                    <option value="nagad">Nagad</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="text-white" />
+
+        <!-- price details part -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="totalPriceBox">
+              <h5 class="text-white">
+                Total payable : <span id="totalPrice" class="price">0</span> BDT
+              </h5>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="">
+              <button type="submit" class="btn btn-success">
+                Proceed to checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="js/setProductCost.js"></script>
+<script>
+  window.onload = setProductCost("<%= item %>");
+</script>
+
+<%- include('../partials/footer.ejs') %>

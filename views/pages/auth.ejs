@@ -1,0 +1,124 @@
+<%- include('../partials/header.ejs') %>
+
+<section class="auth">
+  <div class="container py-3">
+    <% if (action == 'register') { %>
+    <div class="depth bg-primary">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Register</li>
+      </ol>
+    </div>
+    <div class="authForm py-4">
+      <div class="text-center">
+        <i class="icon bi bi-person-circle"></i>
+      </div>
+      <h5 class="text-white text-center">Register for an account</h5>
+      <hr class="text-white" />
+      <div class="px-3 text-white">
+        <form action="/register" method="post">
+          <div class="form-group mb-3">
+            <label for="name" class="form-label">Full name</label>
+            <input
+              type="text"
+              class="form-control <%= errors.fullName ? 'is-invalid' : '' %>"
+              name="fullName"
+              value="<%= values.fullName ? values.fullName : '' %>"
+              required
+              id="name"
+              placeholder="Enter your full name"
+            />
+            <div class="invalid-feedback"><%= errors.fullName %></div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              class="form-control <%= errors.email ? 'is-invalid' : '' %>"
+              name="email"
+              value="<%= values.email ? values.email : '' %>"
+              required
+              id="email"
+              aria-describedby="emailHelp"
+              placeholder="Enter your email"
+            />
+            <div class="invalid-feedback"><%= errors.email %></div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="pass" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control <%= errors.password ? 'is-invalid' : '' %>"
+              name="password"
+              value="<%= values.password ? values.password : '' %>"
+              required
+              id="pass"
+              placeholder="Enter desired password"
+            />
+            <div class="invalid-feedback"><%= errors.password %></div>
+          </div>
+          <div>
+            <p>Already have an account? <a href="/login">Login here</a></p>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-success">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <% } else if (action == "login") { %>
+    <div class="depth bg-primary">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Login</li>
+      </ol>
+    </div>
+
+    <div class="authForm py-4">
+      <div class="text-center">
+        <i class="icon bi bi-shield-lock-fill"></i>
+      </div>
+      <h5 class="text-white text-center">Login to your account</h5>
+      <hr class="text-white" />
+      <div class="px-3 text-white">
+        <form action="/login" method="post">
+          <div class="form-group mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              aria-describedby="emailHelp"
+              placeholder="Enter your email"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="pass" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              id="pass"
+              placeholder="Enter your password"
+            />
+          </div>
+          <div>
+            <p>Forgot password? <a href="#">Reset here</a></p>
+          </div>
+          <hr class="text-white" />
+          <div>
+            <p>Don't have an account? <a href="/register">Register here</a></p>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-success">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer.ejs') %>

@@ -1,0 +1,108 @@
+<%- include('../partials/header.ejs') %>
+
+<section class="reviewOrder">
+  <div class="container py-3">
+    <div class="depth bg-primary">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/products">Products</a></li>
+
+        <% if (orderData.product == 'cod-cp') { %>
+        <li class="breadcrumb-item">
+          <a href="/order?item=cp">Place order</a>
+        </li>
+        <% } %>
+
+        <li class="breadcrumb-item active" aria-current="page">Review order</li>
+      </ol>
+    </div>
+    <div class="reviewDiv">
+      <div class="row pb-3">
+        <div class="col-md-6">
+          <div class="orderData text-white">
+            <h4 class="text-white text-center">Your order data</h4>
+            <hr class="text-white" />
+            <% if (orderData.product == 'cod-cp') { %>
+            <div class="text-center">
+              <img
+                src="img/cp-logo.png"
+                class="text-center"
+                height="120"
+                width="120"
+                alt="product image"
+              />
+            </div>
+            <p>Product - <span>Call of Duty : Mobile (CP)</span></p>
+            <p>CP quantity - <span><%= orderData.cpAmount %> </span></p>
+            <p>Login method - <span><%= orderData.loginMethod %> </span></p>
+            <p>Login email or phone - <span><%= orderData.loginId %> </span></p>
+            <p>Login password - <span><%= orderData.loginPass %> </span></p>
+            <% } %>
+            <hr class="text-white" />
+            <p class="priceInfo">
+              Price : <span><%= orderData.price %> BDT</span>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="paymentInfo">
+            <% if (orderData.paymentMethod == 'bkash') { %>
+            <h4 class="text-white text-center">Payment procedure</h4>
+            <hr class="text-white" />
+            <div class="text-center">
+              <img src="img/bkash.png" width="120" height="120" alt="" />
+            </div>
+            <div class="text-white mt-2">
+              <p>Our bKash account - <span>01521534101</span> (Personal)</p>
+              <p>Process for bKash payment -</p>
+              <ul>
+                <li>Open bKash app or dial *247#</li>
+                <li>Select "Send money"</li>
+                <li>Enter amount <span><%= orderData.price %> BDT</span></li>
+                <li>Send money to the above number</li>
+                <li>You will get a Transction ID. Enter it below.</li>
+              </ul>
+            </div>
+            <% } %>
+            <hr class="text-white" />
+            <div>
+              <h6 class="text-white">Payment Transction ID</h6>
+              <% if (user) { %>
+              <div>
+                <form action="/confirmOrder" method="post">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control disabled"
+                      placeholder="Enter transaction ID to confirm order"
+                    />
+                  </div>
+                  <div class="text-center mt-2">
+                    <button type="submit" class="btn btn-sm btn-light">
+                      Confirm order
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <% } else { %>
+              <div class="mt-2">
+                <div class="text-center">
+                  <i class="error bi bi-patch-exclamation-fill"></i>
+                </div>
+                <p class="error">
+                  You need to login or register before confirming your order. Your order data won't be lost.
+                </p>
+                <div class="text-center">
+                  <a href="/login" class="btn btn-sm btn-light w-25">Login</a>
+                </div>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer.ejs') %>
